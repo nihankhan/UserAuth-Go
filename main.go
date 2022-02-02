@@ -13,5 +13,5 @@ func main() {
 	route := routes.GetRoutes()
 
 	log.Println("Server listening on http://127.0.0.1" + address)
-	log.Fatal(http.ListenAndServe(address, mux))	
+	log.Fatal(http.ListenAndServe(address, nil))	
 }

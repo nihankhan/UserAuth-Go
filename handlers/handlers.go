@@ -5,13 +5,17 @@ import (
 	"html/template"
 )
 
-var (
-	tmplt *template.Template
-)
+// var (
+// 	Tmplt *template.Template
+// )
 
-tmplt, _ = template.ParseGlob("/home/nihan/Documents/UserAuth-Go/templates/*.html")
+Tmplt, err = template.ParseGlob("/home/nihan/Documents/UserAuth-Go/templates/*.html")
+
+if err != nil {
+	panic(err)
+}
 
 
 func Home(resp http.ResponseWriter, req *http.Request) {
-	tmplt.ExecuteTemplate(resp, "index.html", nil)
+	Tmplt.ExecuteTemplate(resp, "index.html", nil)
 }

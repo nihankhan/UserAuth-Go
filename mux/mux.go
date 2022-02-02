@@ -28,11 +28,6 @@ func NewRouter() *Router {
 	return &Router{namedRoutes: make(map[string]*Route)}
 }
 
-func (r *Router) StrictSlash(value bool) *Router {
-	r.strictSlash = value
-	return r
-}
-
 func (r *Router) GetRoute(name string) *Route {
 	return r.namedRoutes[name]
 }
