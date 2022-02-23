@@ -1,21 +1,28 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
-	"html/template"
+	//"html/template"
 )
 
 // var (
-// 	Tmplt *template.Template
+// 	tmplt *template.Template
 // )
 
-Tmplt, err = template.ParseGlob("/home/nihan/Documents/UserAuth-Go/templates/*.html")
+// tmplt, err = template.ParseGlob("/home/nihan/Documents/UserAuth-Go/templates/*.html")
 
-if err != nil {
-	panic(err)
-}
+// if err != nil {
+// 	panic(err)
+// }
 
 
 func Home(resp http.ResponseWriter, req *http.Request) {
-	Tmplt.ExecuteTemplate(resp, "index.html", nil)
+	//tmplt.ExecuteTemplate(resp, "index.html", nil)
+
+	fmt.Fprintf(resp, "Hello, Nihan Khan!!!\n")
+}
+
+func Test(resp http.ResponseWriter, req *http.Request) {
+	fmt.Fprintf(resp, "Hello, This is Test!!!\n")
 }

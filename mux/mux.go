@@ -4,6 +4,10 @@ import (
 	"net/http"
 )
 
+func NewRouter() *Router {
+	return &Router{namedRoutes: make(map[string]*Route)}
+}
+
 type Route struct {
 	// Request handler for the route.
 	handler http.Handler
@@ -22,10 +26,6 @@ type Route struct {
 
 type Router struct {
 	namedRoutes map[string]*Route
-}
-
-func NewRouter() *Router {
-	return &Router{namedRoutes: make(map[string]*Route)}
 }
 
 func (r *Router) GetRoute(name string) *Route {
