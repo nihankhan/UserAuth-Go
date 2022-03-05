@@ -8,6 +8,7 @@ import (
 )
 
 const (
+	dbDriver = "mysql"
 	username = "root"
 	password = "nihankhan"
 	hostname = "127.0.0.1:3306"
@@ -19,14 +20,16 @@ func dsn(dbName string) string {
 }
 
 var (
-	dbc  *sql.DB
+	db  *sql.DB
 	err  error
 )
 
-func Connect() {
-	dbc, err = sql.Open("mysql", dsn(""))
+func Connect() (db *sql.DB) {
+	db, err = sql.Open(dbDriver, dsn(""))
 
 	if err != nil {
 		panic(err)
 	}
+
+	return db
 }

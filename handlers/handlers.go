@@ -3,26 +3,57 @@ package handlers
 import (
 	"fmt"
 	"net/http"
-	//"html/template"
+	// "html/template"
+
+	"github.com/nihankhan/UserAuth-Go/db"
+	"github.com/nihankhan/UserAuth-Go/templates"
 )
 
-// var (
-// 	tmplt *template.Template
-// )
-
-// tmplt, err = template.ParseGlob("/home/nihan/Documents/UserAuth-Go/templates/*.html")
-
-// if err != nil {
-// 	panic(err)
-// }
-
-
-func Home(resp http.ResponseWriter, req *http.Request) {
-	//tmplt.ExecuteTemplate(resp, "index.html", nil)
-
-	fmt.Fprintf(resp, "Hello, Nihan Khan!!!\n")
+type nihan struct {
+	ID       int
+	fullName string
+	username string
+	password string
 }
 
-func Test(resp http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(resp, "Hello, This is Test!!!\n")
+func Index(resp http.ResponseWriter, req *http.Request) {
+	tmpl, _ := templates.Render()
+
+	//fmt.Println(tmpl)
+
+	tmpl.ExecuteTemplate(resp, "index.html", nil)
+}
+
+func LogIn(resp http.ResponseWriter, req *http.Request) {
+	//tmpl, _ := template.ParseGlob("/home/nihan/Documents/UserAuth-Go/templates/*.html")
+
+	tmpl, _ := templates.Render()
+
+	tmpl.ExecuteTemplate(resp, "login.html", nil)
+}
+
+func Query(resp http.ResponseWriter, req *http.Request) {
+
+	// Connect database
+	db := db.Connect()
+
+	qry, err := db.Query("SELECT * FROM Nihan.users")
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer qry.Close()
+
+	for qry.Next() {
+		var ebu nihan
+
+		err := qry.Scan(&ebu.ID, &ebu.fullName, &ebu.username, &ebu.password)
+
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Fprintf(resp, "%v\n", ebu)
+	}
 }
