@@ -9,8 +9,6 @@ import (
 const address = ":8080"
 
 func main() {
-	// := db.Connect()
-
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", handlers.Index)

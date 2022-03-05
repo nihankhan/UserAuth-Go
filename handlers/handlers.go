@@ -2,11 +2,12 @@ package handlers
 
 import (
 	"fmt"
+	"log"
 	"net/http"
-	// "html/template"
+	"html/template"
 
 	"github.com/nihankhan/UserAuth-Go/db"
-	"github.com/nihankhan/UserAuth-Go/templates"
+	//"github.com/nihankhan/UserAuth-Go/templates"
 )
 
 type nihan struct {
@@ -17,17 +18,23 @@ type nihan struct {
 }
 
 func Index(resp http.ResponseWriter, req *http.Request) {
-	tmpl, _ := templates.Render()
+	//tmpl, _ := templates.Render()
 
-	//fmt.Println(tmpl)
+	tmpl, err := template.ParseFiles("/home/nihan/Documents/UserAuth-Go/templates/index.html")
+
+	if err != nil {
+		log.Fatal("Unable to parse from template:- ", err)
+	}
 
 	tmpl.ExecuteTemplate(resp, "index.html", nil)
 }
 
 func LogIn(resp http.ResponseWriter, req *http.Request) {
-	//tmpl, _ := template.ParseGlob("/home/nihan/Documents/UserAuth-Go/templates/*.html")
+	tmpl, err := template.ParseFiles("/home/nihan/Documents/UserAuth-Go/templates/login.html")
 
-	tmpl, _ := templates.Render()
+	if err != nil {
+		log.Fatal("Unable to parse from template:- ", err)
+	}
 
 	tmpl.ExecuteTemplate(resp, "login.html", nil)
 }
